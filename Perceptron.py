@@ -12,7 +12,6 @@ Requirements
 
 #%% import libraries and modules
 import numpy as np  
-import random
 import matplotlib.pyplot as plt
 import os
 
@@ -22,9 +21,9 @@ plt.rcParams['font.size']= 14
 plt.rcParams['lines.linewidth'] = 3
 
 #%%
-
 class Perceptron:
     """Perceptron class."""
+    
     def __init__(self, class_size=100, learning_rate=0.01, num_training_epochs=4):
         self.class_size = class_size
         self.learning_rate = learning_rate
@@ -68,16 +67,15 @@ class Perceptron:
         return bias
     
     def train_model(self, input_patterns, target_patterns):
-        """Train the model parameters to find a linear boundary
-           that separates the data into different classes."""
+        """Train the model parameters to find a linear boundary that separates the data into different classes."""
         # create empty list to store weights
         weights_data = []
         # create empty list to store bias
         bias_data = []
         # initialize weights
-        weights = Perceptron().initialize_weights()
+        weights = self.initialize_weights()
         # initialize bias
-        bias = Perceptron().initialize_bias()
+        bias = self.initialize_bias()
         # initialize epoch index
         epoch_index = 0
         while epoch_index < self.num_training_epochs:
@@ -86,7 +84,7 @@ class Perceptron:
                 # compute output of linear combiner
                 linear_combiner_output = np.dot(weights, input_pattern) + bias
                 # apply signum function
-                actual_pattern = Perceptron().signum_function(linear_combiner_output)
+                actual_pattern = self.signum_function(linear_combiner_output)
                 # compute error
                 error = target_pattern - actual_pattern
                 # update weights
@@ -103,20 +101,16 @@ class Perceptron:
         return weights_data, bias_data
 
 #%% instantiate Perceptron class
-
 model = Perceptron()
 
 #%% create input and target patterns
-
 input_patterns = model.make_inputs()
 target_patterns = model.make_targets()
 
 #%% train model
-
 weights_data, bias_data = model.train_model(input_patterns, target_patterns)
 
 #%% plot figures
-
 cwd = os.getcwd()                                                               # get current working directory
 fileName = 'images'                                                             # specify filename
 
